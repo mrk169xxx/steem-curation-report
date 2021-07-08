@@ -1,18 +1,34 @@
 ### Steem Curation Report
 
-Steem curation report is a small project that will allow you to automatically generate a report of the post that were curated by _x_ account for the last 24 hours.
+Steem curation report is a small project that will allow you to automatically generate a report of the posts that were curated by _x_ account for the last 24 hours.
 
 ### Requeriments
 
-* Steem,
-* Crontab,
-* Nodejs,
+* steem,
+* crontab,
+* nodejs,
 * node-fetch,
 * and moment.
 
 ### Instalation Instrunctions
 
 * ```git clone https://github.com/Symbiont-s/steem-curation-report```
+
+* If nodejs and npm are not already installed on your server, you can install both of them by doing:
+
+```
+sudo apt-get update && apt-get upgrade
+```
+
+```
+sudo apt install nodejs
+```
+
+* npm is supposed to be included with nodejs, is this was not the case for some reason, do:
+
+```
+sudo apt install npm
+```
 
 * Navigate to inside the folder of the project ```cd steem-curation-report``` then do ```npm i```. in case of an issue you can install the depndencies manually by doing:
 
