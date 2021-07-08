@@ -38,7 +38,7 @@ sudo apt install npm
 
 ```npm install moment```
 
-* Edit steem-curation-report.js using vim or nano by doing ```vim steem-curation-report.js``` or ```nano steem-curation-report.js```, add the name of your account that is used to vote with, your posting key, your body text, tags, and beneficiaries if needed. If you are not used to using nano or vim, the file can be easily edited on a desktop by using  Notepad++.
+* Edit steem-curation-report.js using vim or nano by doing ```vim curationreport.js``` or ```nano curationreport.js```, add the name of your account that is used to vote with, your posting key, your body text, tags, and beneficiaries if needed. If you are not used to using nano or vim, the file can be easily edited on a desktop by using  Notepad++.
 
 * Then you can test your JS file by doing ```node steem-curation-report.js```. An example of the original output can be seen [here](https://steemit.com/ecs/@ecosynthesizer/ecs-curation-report-8-7-2021-id-7158).
 
@@ -63,7 +63,7 @@ crontab -e
 Chose to proceed with vim or nano, then add the below line, then save and exit.
 
 ```
-0 0 * * * node /root/steem-curation-report/steem-curation-report.js
+0 0 * * * node /root/steem-curation-report/curationreport.js
 ```
 
 The path depends on where you have put the folder of the project on your server.
