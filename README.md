@@ -7,7 +7,7 @@ Steem curation report is a small project that will allow you to automatically ge
 * Steem,
 * Crontab,
 * Nodejs,
-*node-fetch,
+* node-fetch,
 * and moment.
 
 ### Instalation Instrunctions
@@ -33,6 +33,7 @@ Steem curation report is a small project that will allow you to automatically ge
 ```
 sudo apt-get update && apt-get upgrade
 ```
+
 ```
 sudo apt-get install cron
 ```
@@ -42,16 +43,18 @@ sudo apt-get install cron
 ```
 crontab -e
 ```
-Chose to proceed with vim or nano. Then add the above line then save and exit.
+
+Chose to proceed with vim or nano, then add the below line, then save and exit.
+
 ```
 0 0 * * * node /root/steem-curation-report/steem-curation-report.js
 ```
+
 The path depends on where you have put the folder of the project on your server.
 
 ### Notes
 
 * Users can only post on Steem once every 5 minutes. If some other activities or reports are planned at the same time, they need to be time spaced.
-
 
 ### Contribution & Features Request
 
