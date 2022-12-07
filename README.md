@@ -1,72 +1,125 @@
-### Steem Curation Report
+# Steem Curation Report
 
 Steem curation report is a small project that will allow you to automatically generate a report of the posts that were curated by _x_ account for the last 24 hours.
 
-### Requeriments
+# Requirements
 
-* steem,
-* crontab,
-* nodejs,
-* node-fetch,
-* and moment.
+- node version 16
+- npm 
+- pm2
 
-### Instalation Instrunctions
+# Install
 
-* ```git clone https://github.com/Symbiont-s/steem-curation-report```
+Next I will explain how to install all the dependencies of the project.
 
-* If nodejs and npm are not already installed on your server, you can install both of them by doing:
+## 1- Install NodeJS
 
-```
-sudo apt-get update && apt-get upgrade
-```
+Run the following commands
 
 ```
-sudo apt install nodejs
+sudo apt update && sudo apt install curl
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
 
-* npm is supposed to be included with nodejs, is this was not the case for some reason, do:
+## 1.2- Verify that nodejs and npm are installed
+
+Run the following commands
 
 ```
-sudo apt install npm
+node -v
+npm -v
 ```
 
-* Navigate to inside the folder of the project ```cd steem-curation-report``` then do ```npm i```. in case of an issue you can install the depndencies manually by doing:
+## Install pm2
 
-```npm install steem --save```
-
-```npm install node-fetch```
-
-```npm install moment```
-
-* Edit steem-curation-report.js using vim or nano by doing ```vim curationreport.js``` or ```nano curationreport.js```, add the name of your account that is used to vote with, your posting key, your body text, tags, and beneficiaries if needed. If you are not used to using nano or vim, the file can be easily edited on a desktop by using  Notepad++.
-
-* Then you can test your JS file by doing ```node steem-curation-report.js```. An example of the original output can be seen [here](https://steemit.com/ecs/@ecosynthesizer/ecs-curation-report-8-7-2021-id-7158).
-
-### Automate the Reports
-
-* Now that your JS is properly working, you can automate the reports by using Crontab. If Crontab is not already installed on your server, you can install it by doing:
+Run the following command
 
 ```
-sudo apt-get update && apt-get upgrade
+npm install pm2 -g
 ```
 
-```
-sudo apt-get install cron
-```
+## Install project dependencies
 
-* You can now add a new cron job and make it run once every 24 hours:
+Within the root folder of the project, that is, where this file is, execute the following command.
 
 ```
-crontab -e
+npm install
 ```
 
-Chose to proceed with vim or nano, then add the below line, then save and exit.
+# Configure and run the bot
+
+## Configure the bot
+
+You must create a file called config.js inside the folder of the project and copy all the code from the config-example.js file, then you must complete several options inside the config.js
+
+## Run the bot
+
+Once you have installed everything the bot needs and configured it, then you can run it.
+
+Within the root folder of the project, that is, where this file is, execute the following command.
 
 ```
-0 0 * * * node /root/steem-curation-report/curationreport.js
+pm2 start curationreport.js
 ```
 
-The path depends on where you have put the folder of the project on your server.
+# See the running bot
+
+```
+pm2 list
+```
+
+# See in detail the bot running
+
+Use `pm2 show <id|name>` to get more details about an app
+
+Example:
+```
+pm2 show bot
+```
+
+# View bot messages
+
+Use `pm2 logs <id|name>` to display logs
+
+Example:
+```
+pm2 logs bot
+```
+
+# Stop the bot
+
+This only stops the bot but it will still appear on run
+```
+pm2 list
+```
+Command to remove:
+`pm2 stop <id|name>`
+
+Example:
+```
+pm2 stop bot
+```
+
+# Restart the bot
+
+`pm2 restart <id|name>`
+
+Example:
+```
+pm2 restart bot
+```
+
+# Remove the bot from the process list
+
+Stop and delete a process from pm2 process list
+
+`pm2 delete|del <id|name>`
+
+Example:
+```
+pm2 delete bot
+```
 
 ### Notes
 

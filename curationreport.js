@@ -1,6 +1,10 @@
+// import fetch from "node-fetch";
 const steem  = require("steem");
-const fetch  = require("node-fetch");
 const moment = require('moment');
+const cron = require('node-cron');
+const fetch  = require("node-fetch");
+const cfg = require('./config');
+
 class Methods {
     constructor() {
         let month   = new Date().getMonth() + 1;
@@ -8,41 +12,31 @@ class Methods {
         let day     = (new Date().getDate() < 10)? "0" + new Date().getDate() : new Date().getDate();
         this.today  = new Date().getFullYear() + "-" + month + "-" + day;
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
-        this.user   = 'ecosynthesizer'; // set your user here
-        this.key    = '5xxx'; //set your posting key here
-        this.title  = 'ECS Curation Report | ' + this.months[new Date().getMonth()] + " " + new Date().getDate() + ", " + new Date().getFullYear();
-        this.body   = `
-<center> ![ECS Thumb Two.png](https://cdn.steemitimages.com/DQmfYoeCE1NM9vLmkKnh7hu9MqewEc8J78waWV3dLrU21HU/ECS%20Thumb%20Two.png) </center> <br> <div class="text-justify"> Welcome to the daily report of the Ecosynthesizer project. You will find below a compilation of posts picked by our dedicated community curators. Do not hesitate to check a few of them, you might find something that you really like! 
-<center>https://steemitimages.com/100x100/https://cdn.steemitimages.com/DQmTHqfDW2W6MH5sXVEtsnzsfZi4guQC5VtL7irQr8yvShw/Separators.png</center>
-
-[POST]
-
-<center>https://steemitimages.com/100x100/https://cdn.steemitimages.com/DQmTHqfDW2W6MH5sXVEtsnzsfZi4guQC5VtL7irQr8yvShw/Separators.png</center>
-
-<center>The Ecosynthesizer project is brought to you by the [Symbionts](https://steemlogin.com/sign/account-witness-vote?witness=symbionts&approve=true) team</center>
-<center><sup>[1000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=1000%20SP) | [2000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=2000%20SP) | [3000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=3000%20SP) | [4000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=4000%20SP) | [5000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=5000%20SP) | [10000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=10000%20SP) | [100000SP](https://steemlogin.com/sign/delegateVestingShares?delegatee=ecosynthesizer&vesting_shares=100000%20SP)</sup></center> </div>`;
-        this.tags          = 'ecs steem curation report symbionts';
+        this.user   = cfg.ACCOUNT;
+        this.key    = cfg.POSTING_KEY;
+        this.title  = `${cfg.TITLE.title}-${cfg.TITLE.withDate ? (this.months[new Date().getMonth()] + " " + new Date().getDate() + ", " + new Date().getFullYear()) : ''}`;
+        this.body   = cfg.BODY;
+        this.tags          = cfg.TAGS;
+        let b = cfg.BENEFICIARIES
+        b.sort((a,b) => (a.account > b.account) ? 1 : ((b.account > a.account) ? -1 : 0))
+        b.sort((a,b) => a.weight - b.weight)
         this.beneficiaries = {
-            beneficiaries:[
-                {
-                    "account":"ecs.pay",
-                    "weight": 10000
-                }
-            ]
+            beneficiaries: b
         };
     }
     async main() { 
         let t = this; 
-        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,-1, 1000]);
+        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,-1, 100]);
         trx = JSON.parse(trx).result.reverse();
-        // console.log(trx); 
         let votes = this.filterByVotes(trx);
         votes     = this.filterByTime(votes);
         // console.log(votes[0]);
         if (votes.length > 0) {
             console.log('votes found');
-            let permlink = "ecs-curation-report-" + new Date().getDate() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getFullYear() + "-id-" + Math.random().toFixed(4).substring(2);
-            let tags  = this.tags.split(' ');
+            let permlink = cfg.TITLE.title.toLowerCase().replace(/\s+/g, '-').split("|").join("-") + new Date().getDate() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getFullYear() + "-id-" + Math.random().toFixed(4).substring(2);
+            console.log(permlink);
+            // console.log("ecs-curation-report-" + new Date().getDate() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getFullYear() + "-id-" + Math.random().toFixed(4).substring(2));
+            let tags  = this.tags;
             let meta  = JSON.stringify({tags:tags});
             let header = `
 | <center>Thumbnail</center> | <center>User</center> | <center>Post</center> |
@@ -71,9 +65,9 @@ class Methods {
                     resolve(table);
             }).then(table => { 
                 console.log('Promise resolved');
-                console.log('====================================');
-                console.log(table);
-                console.log('====================================');
+                // console.log('====================================');
+                // console.log(table);
+                // console.log('====================================');
                 steem.broadcast.comment(
                     this.key, // posting wif
                     '', // author, leave blank for new post
@@ -172,4 +166,7 @@ class Methods {
 
 let m = new Methods();
 
-m.main();
+cron.schedule(cfg.CRON_RUTINE, function() {
+    console.log('running...');
+    m.main();
+});
