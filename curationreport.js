@@ -14,7 +14,7 @@ class Methods {
         this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
         this.user   = cfg.ACCOUNT;
         this.key    = cfg.POSTING_KEY;
-        this.title  = `${cfg.TITLE.title} ${cfg.TITLE.withDate ? (this.months[new Date().getMonth()] + " " + new Date().getDate() + ", " + new Date().getFullYear()) : ''}`;
+        this.title  = `${cfg.TITLE.title}${cfg.TITLE.withDate ? (this.months[new Date().getMonth()] + " " + new Date().getDate() + ", " + new Date().getFullYear()) : ''}`;
         this.body   = cfg.BODY;
         this.tags          = cfg.TAGS;
         let b = cfg.BENEFICIARIES
