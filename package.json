@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "moment": "^2.29.4",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^2.6.7",
+    "steem": "^0.7.11"
+  }
+}
