@@ -59,6 +59,12 @@ Once you have installed everything the bot needs and configured it, then you can
 
 Within the root folder of the project, that is, where this file is, execute the following command.
 
+## Run with node
+```
+node curationreport.js
+```
+
+## Run with pm2
 ```
 pm2 start curationreport.js
 ```
