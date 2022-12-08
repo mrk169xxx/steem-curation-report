@@ -55,7 +55,7 @@ class Methods {
                         try {
                             var image = meta.image[0];
                         } catch (err) {
-                            var image = "https://cdn.steemitimages.com/DQmfYoeCE1NM9vLmkKnh7hu9MqewEc8J78waWV3dLrU21HU/ECS%20Thumb%20Two.png";
+                            var image = "https://i.imgur.com/r6gsEfp.jpg";
                         }
                         
                         str += `| <center><a href='https://steemit.com/@${v[1].op[1].author}/${v[1].op[1].permlink}'><img src="https://steemitimages.com/128x256/${image}"></a></center> | <center><a href='https://steemit.com/@${v[1].op[1].author}'>@${v[1].op[1].author}</a></center> | <center><a href='https://steemit.com/@${v[1].op[1].author}/${v[1].op[1].permlink}'>${title}</a></center> |
