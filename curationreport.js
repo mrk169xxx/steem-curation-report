@@ -166,7 +166,4 @@ class Methods {
 
 let m = new Methods();
 
-cron.schedule(cfg.CRON_RUTINE, function() {
-    console.log('running...');
-    m.main();
-});
+m.main();
