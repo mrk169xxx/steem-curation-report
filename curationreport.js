@@ -27,7 +27,7 @@ class Methods {
     }
     async main() { 
         let t = this; 
-        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,-1, 30]);
+        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,-1, 100]);
         trx = JSON.parse(trx).result.reverse();
         let votes = this.filterByVotes(trx);
         votes     = this.filterByTime(votes);
@@ -112,7 +112,7 @@ class Methods {
         }else {
             console.log('no votes found');
         }
-      await sleep(1200000); // sleep for 10 seconds
+      await sleep(1800000); // sleep for 30 mins
     }
     filterByVotes(trx){
         let votes = []; 
