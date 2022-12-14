@@ -107,11 +107,11 @@ class Methods {
                         }
                     }
                 );
-                process.exit();
             }).catch(err => console.log("Error waiting." + err) );
+            await sleep(1200000);
         }else {
             console.log('no votes found');
-            process.exit();
+            await sleep(1200000);
         }
     }
     filterByVotes(trx){
