@@ -26,7 +26,7 @@ class Methods {
     }
     async main() { 
         let t = this; 
-        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,1, 1200000]);
+        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,1, 100]);
         trx = JSON.parse(trx).result.reverse();
         let votes = this.filterByVotes(trx);
         votes     = this.filterByTime(votes);
