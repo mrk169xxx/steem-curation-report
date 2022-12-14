@@ -26,7 +26,7 @@ class Methods {
     }
     async main() { 
         let t = this; 
-        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,1, 100]);
+        let trx = await this.getAccountHistory('https://api.steemit.com', [this.user,-1, 30]);
         trx = JSON.parse(trx).result.reverse();
         let votes = this.filterByVotes(trx);
         votes     = this.filterByTime(votes);
@@ -107,9 +107,11 @@ class Methods {
                         }
                     }
                 );
+                process.exit();
             }).catch(err => console.log("Error waiting." + err) );
         }else {
             console.log('no votes found');
+            process.exit();
         }
     }
     filterByVotes(trx){
