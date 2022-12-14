@@ -108,11 +108,10 @@ class Methods {
                     }
                 );
             }).catch(err => console.log("Error waiting." + err) );
-            await sleep(1200000);
         }else {
             console.log('no votes found');
-            await sleep(1200000);
         }
+      await sleep(1200000);
     }
     filterByVotes(trx){
         let votes = []; 
