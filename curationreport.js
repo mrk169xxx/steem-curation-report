@@ -111,7 +111,7 @@ class Methods {
         }else {
             console.log('no votes found');
         }
-      await sleep(1200000);
+      await new Promise(resolve => setTimeout(resolve, 1200000));
     }
     filterByVotes(trx){
         let votes = []; 
