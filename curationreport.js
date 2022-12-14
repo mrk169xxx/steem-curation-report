@@ -111,6 +111,7 @@ class Methods {
         }else {
             console.log('no votes found');
         }
+        process.exit()
     }
     filterByVotes(trx){
         let votes = []; 
