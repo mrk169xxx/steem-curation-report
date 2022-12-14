@@ -3,6 +3,7 @@ const steem  = require("steem");
 const moment = require('moment');
 const cron = require('node-cron');
 const fetch  = require("node-fetch");
+const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
 const cfg = require('./config');
 
 class Methods {
@@ -111,7 +112,7 @@ class Methods {
         }else {
             console.log('no votes found');
         }
-      await new Promise(resolve => setTimeout(resolve, 1200000));
+      await sleep(1200000); // sleep for 10 seconds
     }
     filterByVotes(trx){
         let votes = []; 
