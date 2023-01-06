@@ -87,7 +87,7 @@ class Methods {
                                 let ben = `[[0,${JSON.stringify(t.beneficiaries)}]]`;
                                 ben = JSON.parse(ben);
                                 let MaxAcceptedPayout = "1000000.000 SBD",
-                                percentSteemDollars = 100,
+                                percentSteemDollars = 10000,
                                 allowVotes          = true,
                                 allowCuration       = true;
                                 steem.broadcast.commentOptions(
